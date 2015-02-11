@@ -6,9 +6,9 @@ myBottle = Bottle()
 
 @myBottle.route('/')
 def howdy():
-    myMessage = "Message in a Bottle"
-    tattoo = "http://blog-cdn.tattoodo.com/wp-content/uploads/2014/04/House-of-Targaryen.jpg"
-    output = template('webtemplates/helloWorld', data=myMessage, prettyImg=tattoo)
+    mymessage = "Message in a Bottle"
+    dragon = "http://img4.wikia.nocookie.net/__cb20121214173011/gameofthrones/images/a/ac/HouseTargaryenMetallic.jpg"
+    output = template('webtemplates/helloWorld', data=mymessage, prettyImg=dragon)
     return output
 
 @myBottle.error(404)
