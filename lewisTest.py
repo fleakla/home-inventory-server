@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import webapp2
-from bottle import Bottle, template
+from bottle import Bottle, template, request
 
 myBottle = Bottle()
 
@@ -26,7 +26,13 @@ def testFormHandler():
 
 @myBottle.route('/saveFormTest', method='POST')
 def testFormSaveHandler():
-    return "I handled a post event!"
+    title = request.POST.get('title').strip()
+    genre = request.POST.get('genre').strip()
+    author = request.POST.get('author')
+
+    dataDictionary = {'Title':title, 'Genre':genre, 'Author':author}
+
+    return template('webtemplates/saveTest', dataDictionary=dataDictionary)
 
 
 
