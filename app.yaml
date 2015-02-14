@@ -9,9 +9,6 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-#- url: .*
-#  script: main.app
-
 - url: .*
   script: lewisTest.myBottle
 
