@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from bottle import Bottle, template, request, redirect
 from google.appengine.api import users
+from google.appengine.ext import ndb
+from myPackages.inventoryEntry import InventoryEntry, Work, Creator
 
 myBottle = Bottle()
 
@@ -45,15 +47,32 @@ def test_form_save_handler():
     return template('webtemplates/saveTest', dataDictionary=data_dictionary)
 
 
-@myBottle.route('/saveAndSearchTest', method='POST')
+@myBottle.route('/saveAndSearchTest')
 def save_and_search_test():
     current_user = check_user_status(request.url)
 
     return template('webtemplates/saveToDataStoreTest', user=current_user)
 
 
-@myBottle.route('/saveToDataStoreTest')
+def build_inventory_key(default_name='DEFAULT_INVENTORY'):
+    cur_user = users.get_current_user()
+    if cur_user:
+        default_name = cur_user.nickname()
+
+    return ndb.Key(default_name)
+
+
+@myBottle.route('/saveOrSearchBookData', method='POST')
 def display_save_search_form():
+    # if request.POST.get('Save'):
+    entry = InventoryEntry(parent=build_inventory_key())
+    entry.work = Work()
+    entry.work.title = request.POST.get('title').strip()
+    entry.work.creator = request.POST.get('author').strip()
+    entry.work.publication_date = request.POST.get('PubDate').strip()
+    entry.work.isbn_number = request.POST.get('ISBN').strip()
+    # entry.put()
+
     return template('webtemplates/saveToDataStoreTest', user=users.get_current_user())
 
 
@@ -64,7 +83,6 @@ def credentialhandler():
     else:
         if request.POST.get('logout'):
             redirect(users.create_logout_url(request.POST.get('redirectTarget')))
-
 
 
 def check_user_status(loginredirect='/saveAndSearchTest'):

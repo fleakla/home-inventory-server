@@ -9,6 +9,12 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /tests/
+  script: tests.testBottle
+
+- url: /guestbook/.*
+  script: guestbook.guestBottle
+
 - url: .*
   script: lewisTest.myBottle
 
