@@ -1,7 +1,7 @@
 <html>
 
 <header>
-    <form action="../credentialhandler" method="POST">
+    <form action="../credentialhandler" method="POST" align="right">
         % if this_user:
             <input type="submit" name="logout" value="Logout {{this_user.nickname()}}"/>
         % else:

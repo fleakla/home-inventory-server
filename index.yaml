@@ -19,6 +19,13 @@ indexes:
 - kind: GuestbookEntry
   ancestor: yes
   properties:
+  - name: comment_author
+  - name: time_added
+    direction: desc
+
+- kind: GuestbookEntry
+  ancestor: yes
+  properties:
   - name: time_added
 
 - kind: GuestbookEntry

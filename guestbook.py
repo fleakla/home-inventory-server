@@ -35,7 +35,16 @@ def sign_guestbook():
 @guestBottle.route('/guestbook/fetchAll/', method=['GET', 'POST'])
 def fetch_all_comments():
     query = GuestbookEntry.query(ancestor=get_guestbook_key())
+
+    filter_text = request.POST.get('filterText')
+
+    if filter_text:
+        query = query.filter(GuestbookEntry.comment_author >= filter_text)
+        query = query.filter(GuestbookEntry.comment_author < filter_text + u"\ufffd")
+        query = query.order(GuestbookEntry.comment_author)
+
     query = query.order(-GuestbookEntry.time_added)
     query_results = query.fetch()
+
     return template('webtemplates/guestbook/fetchallcomments', this_user=users.get_current_user(),
                     redirect_path=request.path, fetch_results=query_results)
