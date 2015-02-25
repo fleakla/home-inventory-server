@@ -4,14 +4,14 @@ from google.appengine.ext import ndb
 
 
 class Creator(ndb.Model):
-    name = ndb.StringProperty(indexed=False)
+    name = ndb.StringProperty()
 
 
 class Work(ndb.Model):
-    title = ndb.StringProperty(indexed=False)
+    title = ndb.StringProperty(indexed=True)
     creator = ndb.StringProperty(indexed=True)
     publication_date = ndb.DateProperty(indexed=False)
-    isbn_number = ndb.StringProperty(indexed=False)
+    isbn_number = ndb.StringProperty(indexed=True)
 
 
 class InventoryEntry(ndb.Model):

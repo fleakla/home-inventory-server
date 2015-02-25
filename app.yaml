@@ -15,6 +15,9 @@ handlers:
 - url: /guestbook/.*
   script: guestbook.guestBottle
 
+- url: /searchISBN/.*
+  script: isbnSearch.isbnBottle
+
 - url: .*
   script: lewisTest.myBottle
 
