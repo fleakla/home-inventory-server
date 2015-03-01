@@ -49,7 +49,6 @@ def searchISBN():
         parm = isbn_search_param_str % isbn_str
         url_str = google_books_url % parm
         results = urlfetch.fetch(url=url_str)
-        # print(results.content)
         results = json.loads(results.content)
         extracted = extract_fields(results)
 
